@@ -20,8 +20,8 @@ HIRO 는 Claude Code 로 인터랙티브 대시보드를 만드는 작업을 최
 # 1) 본 리포 통째로 clone
 git clone https://github.com/mts8787-droid/HIRO.git
 
-# 2) 대상 프로젝트 루트에 복사
-cp -r HIRO/.claude HIRO/CLAUDE.md HIRO/AGENTS.md HIRO/docs <your-project>/
+# 2) 대상 프로젝트 루트에 복사 (실제 작동 + 사람용 미러 2벌)
+cp -r HIRO/CLAUDE.md HIRO/AGENTS.md HIRO/.claude HIRO/harness-mirror <your-project>/
 
 # 3) Hook 실행 권한
 cd <your-project>
@@ -30,8 +30,11 @@ chmod +x .claude/hooks/*.sh
 # 4) Claude Code 실행 → CLAUDE.md / .claude/* 자동 로드
 ```
 
-## 구조
+`harness-mirror/` 는 사람용 설명 사본 — 실제 작동에는 영향 X. 필요 없으면 삭제 가능.
 
+## 구조 (2벌 정리)
+
+### 1) 실제 작동 — Claude / Codex 자동 로드
 | 파일/폴더 | 역할 |
 |---|---|
 | `CLAUDE.md` | Claude Code 프로젝트 헌법 (자동 로드) |
@@ -41,7 +44,16 @@ chmod +x .claude/hooks/*.sh
 | `.claude/rules/*.md` | Rule 매뉴얼 (data / design / ai / newsletter) + BOOTSTRAP 시나리오 |
 | `.claude/skills/<name>/SKILL.md` | 작업 매뉴얼 (data-add / design-chart / newsletter-make 등) |
 | `.claude/agents/*.md` | Sub-Agent (read-only 진단 전담 등) |
-| `docs/agents/**` | 사람용 미러 (HARNESS.html, CHART_LIBRARY.html, HUMAN_GUIDE.md) |
+
+### 2) 사람용 미러 — `harness-mirror/`
+| 파일/폴더 | 역할 |
+|---|---|
+| `harness-mirror/CLAUDE.md` · `AGENTS.md` | 루트 헌법 1:1 미러 |
+| `harness-mirror/.claude/` | 실제 `.claude/` 1:1 미러 (그대로 다른 프로젝트에 사용 가능) |
+| `harness-mirror/docs/HARNESS.{md,html}` | 전체 하네스 설명 (브라우저 더블클릭으로 열림) |
+| `harness-mirror/docs/CHART_LIBRARY.html` | 차트 분류 카탈로그 정적 스냅샷 |
+| `harness-mirror/docs/HUMAN_GUIDE.md` | 사람 사용 설명서 (hand-edited) |
+| `harness-mirror/docs/hooks/{data,design}.md` | Hook 의 영역별 영향 설명 |
 
 ## 라이브 뷰
 
